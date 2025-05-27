@@ -279,3 +279,28 @@ process.on('SIGTERM', () => {
     console.log('HTTP server closed');
   });
 }); 
+
+// --- GROUP (CHANNEL) LOGIC ---
+const groups = [];
+
+// Grup oluşturma
+app.post('/groups', express.json(), (req, res) => {
+    const { name, description, creatorId } = req.body;
+    if (!name || !creatorId) {
+        return res.status(400).json({ error: 'name and creatorId required' });
+    }
+    const group = {
+        id: Date.now().toString(),
+        name,
+        description: description || '',
+        members: [creatorId],
+        createdAt: new Date().toISOString(),
+    };
+    groups.push(group);
+    res.status(201).json(group);
+});
+
+// Grupları listeleme
+app.get('/groups', (req, res) => {
+    res.json(groups);
+});
