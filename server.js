@@ -306,5 +306,11 @@ app.get('/groups', (req, res) => {
 });
 
 app.get('/channels', (req, res) => {
-    res.json(Array.from(regionalChannels.values()));
+    const channels = Array.from(regionalChannels.values()).map(channel => ({
+        ...channel,
+        members: undefined,
+        messages: undefined,
+        memberCount: channel.members ? channel.members.size : 0
+    }));
+    res.json(channels);
 });
