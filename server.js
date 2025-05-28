@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
+const regionalChannels = new Map();
 
 // Socket.IO CORS ayarları
 const io = socketIO(server, {
