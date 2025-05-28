@@ -320,3 +320,25 @@ app.get('/channels', (req, res) => {
     });
     res.json(channelList);
 });
+
+const tagList = [
+  "Futbol", "Basketbol", "Tenis", "Yüzme",
+  "Rock", "Pop", "Jazz", "Klasik",
+  "Yazılım", "Donanım", "Yapay Zeka",
+  "Resim", "Heykel", "Fotoğraf",
+  "Üniversite", "Okul", "Kurs",
+  "Girişimcilik", "Kariyer", "Networking"
+];
+
+// Her etiket için genel chat grubu ekle
+tagList.forEach(tag => {
+  channels.set(`genel-${tag.toLowerCase()}`, {
+    id: `genel-${tag.toLowerCase()}`,
+    name: `${tag} Genel Chat`,
+    description: `${tag} hakkında genel sohbet odası`,
+    filterRules: [],
+    tags: [tag],
+    messages: [],
+    users: new Set()
+  });
+});
