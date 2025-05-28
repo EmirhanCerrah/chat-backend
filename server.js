@@ -304,3 +304,7 @@ app.post('/groups', express.json(), (req, res) => {
 app.get('/groups', (req, res) => {
     res.json(groups);
 });
+
+app.get('/channels', (req, res) => {
+    res.json(Array.from(regionalChannels.values()));
+});
