@@ -307,17 +307,16 @@ app.get('/groups', (req, res) => {
 });
 
 app.get('/channels', (req, res) => {
-    const channels = Array.from(regionalChannels.values()).map(channel => {
+    const channelList = Array.from(channels.values()).map(channel => {
         // Kopya oluştur
         const ch = { ...channel };
         // JSON'a çevrilemeyen alanları sil
-        delete ch.members;
-        delete ch.messages;
-        // memberCount'u Set ise, sayısını al
-        if (channel.members && typeof channel.members.size === 'number') {
-            ch.memberCount = channel.members.size;
+        if (ch.users && typeof ch.users.size === 'number') {
+            ch.userCount = ch.users.size;
         }
+        delete ch.users;
+        delete ch.messages;
         return ch;
     });
-    res.json(channels);
+    res.json(channelList);
 });
